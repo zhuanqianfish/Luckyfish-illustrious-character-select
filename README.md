@@ -14,14 +14,18 @@
 - **多语言支持**：提供中英文界面切换
 - **AI辅助生成**：集成AI功能辅助生成角色描述（需配置API密钥）
 
-## 独立运行指南
+### 在线使用
+打开浏览器访问 [https://zhuanqianfish.github.io/Luckyfish-illustrious-character-select/](https://zhuanqianfish.github.io/Luckyfish-illustrious-character-select/)
+
+## 本地独立运行指南
 
 本项目可完全独立运行，无需依赖stable-diffusion-webui环境：
 
 ### Windows系统
-1. 双击执行 `web/runserver.bat`
+1. 安装好python环境
+1. 双击执行 `runserver.bat`
 2. 打开浏览器访问 [http://localhost:8888/web/](http://localhost:8888/web/)
-3. 即可开始使用角色提示词查询功能
+
 
 
 ### 作为table-diffusion-webui插件

@@ -18,7 +18,8 @@ class CharacterSearch {
             // 根据系统语言选择加载的文件，默认zh_CN.json
             const userLanguage = navigator.language || navigator.userLanguage;
             const isTraditionalChinese = userLanguage === 'zh-TW' || userLanguage === 'zh-HK' || userLanguage === 'zh-MO';
-            const dataFile = isTraditionalChinese ? '../zh_TW.json' : '../zh_CN.json';
+            // const dataFile = isTraditionalChinese ? '../zh_TW.json' : '../zh_CN.json';
+            const dataFile = isTraditionalChinese ? './zh_TW.json' : './zh_CN.json';
             
             console.log(`检测到系统语言: ${userLanguage}, 加载文件: ${dataFile}`);
             
