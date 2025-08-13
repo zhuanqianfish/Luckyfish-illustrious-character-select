@@ -1,0 +1,17 @@
+title: "Illustrious 角色提示词查询系统"
+description: "为WAI-NSFW-illustrious系列模型提供便捷的角色提示词查询功能"
+baseurl: ""
+url: "https://yourusername.github.io"
+
+# 构建设置
+markdown: kramdown
+highlighter: rouge
+
+# 排除文件
+exclude:
+  - "*.bat"
+  - "*.py"
+  - "*.json"
+  - "scripts/"
+  - ".git/"
+  - ".github/"
