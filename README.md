@@ -1,6 +1,7 @@
 # Illustrious 系列模型角色提示词查询工具
 
 本项目旨在为 [WAI-NSFW-illustrious-SDXL](https://civitai.com/models/827184?modelVersionId=1183765) 系列模型提供便捷的角色提示词查询功能，帮助用户快速获取高质量的角色生成参数。
+![预览](https://zhuanqianfish.github.io/Luckyfish-illustrious-character-select/web/1.jpg)
 
 ## 项目起源
 
@@ -13,6 +14,8 @@
 - **自定义扩展**：支持通过配置文件添加新角色和自定义动作
 - **多语言支持**：提供中英文界面切换
 - **AI辅助生成**：集成AI功能辅助生成角色描述（需配置API密钥）
+
+
 
 ### 在线使用
 打开浏览器访问 [https://zhuanqianfish.github.io/Luckyfish-illustrious-character-select/](https://zhuanqianfish.github.io/Luckyfish-illustrious-character-select/)
