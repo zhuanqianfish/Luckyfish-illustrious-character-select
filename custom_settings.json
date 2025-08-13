@@ -13,5 +13,5 @@
     "ai": true,
     "base_url": "https://api.groq.com/openai/v1/chat/completions",
     "model": "llama-3.3-70b-versatile",
-    "api_key":"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"
+    "api_key":"your key"
 }
