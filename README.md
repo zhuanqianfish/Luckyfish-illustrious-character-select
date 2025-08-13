@@ -24,7 +24,7 @@
 ### Windows系统
 1. 安装好python环境
 1. 双击执行 `runserver.bat`
-2. 打开浏览器访问 [http://localhost:8888/web/](http://localhost:8888/web/)
+2. 打开浏览器访问 [http://localhost:8888/](http://localhost:8888/)
 
 
 
