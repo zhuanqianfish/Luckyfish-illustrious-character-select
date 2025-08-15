@@ -27,11 +27,12 @@ class CharacterSearch {
             // 立即加载中文翻译数据
             const zhResponse = await fetch(dataFile);
             this.zhTWData = await zhResponse.json();
+             // 图片数据加载完成后显示所有角色
+            this.displayAllCharacters();
             
             // 异步加载图片数据
             await this.loadImageDataAsync();
-            // 图片数据加载完成后显示所有角色
-            this.displayAllCharacters();
+           
         } catch (error) {
             console.error('加载数据失败:', error);
             this.showError('加载数据失败，请检查文件路径');
