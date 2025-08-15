@@ -10,7 +10,8 @@ class CharacterSearch {
     async init() {
         await this.loadData();
         this.bindEvents();
-        this.showInitialMessage();
+        // 数据加载完成后立即显示所有角色
+        this.displayAllCharacters();
     }
 
     // 修改第22-25行的文件路径
@@ -28,7 +29,9 @@ class CharacterSearch {
             this.zhTWData = await zhResponse.json();
             
             // 异步加载图片数据
-            this.loadImageDataAsync();
+            await this.loadImageDataAsync();
+            // 图片数据加载完成后显示所有角色
+            this.displayAllCharacters();
         } catch (error) {
             console.error('加载数据失败:', error);
             this.showError('加载数据失败，请检查文件路径');
@@ -72,16 +75,23 @@ class CharacterSearch {
         const searchBtn = document.getElementById('searchBtn');
 
         searchInput.addEventListener('input', (e) => {
-            if (e.target.value.trim()) {
-                this.debounceSearch(e.target.value);
+            const query = e.target.value.trim();
+            if (query) {
+                this.debounceSearch(query);
             } else {
-                this.showInitialMessage();
+                // 搜索栏为空时显示所有角色
+                this.displayAllCharacters();
             }
         });
 
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                this.searchCharacters(e.target.value);
+                const query = e.target.value.trim();
+                if (query) {
+                    this.searchCharacters(query);
+                } else {
+                    this.displayAllCharacters();
+                }
             }
         });
 
@@ -89,6 +99,8 @@ class CharacterSearch {
             const query = searchInput.value.trim();
             if (query) {
                 this.searchCharacters(query);
+            } else {
+                this.displayAllCharacters();
             }
         });
     }
@@ -102,12 +114,31 @@ class CharacterSearch {
 
     searchCharacters(query) {
         if (!query.trim()) {
-            this.showInitialMessage();
+            // 搜索栏为空时显示所有角色
+            this.displayAllCharacters();
             return;
         }
 
         const results = this.performSearch(query);
         this.displayResults(results, query);
+    }
+
+    // 新增方法：显示所有角色
+    displayAllCharacters() {
+        const results = [];
+        
+        for (const [chineseName, englishPrompt] of Object.entries(this.zhTWData)) {
+            results.push({
+                chineseName: chineseName,
+                englishPrompt: englishPrompt,
+                image: this.findImageForCharacter(englishPrompt)
+            });
+        }
+
+        // 按中文名称排序
+        results.sort((a, b) => a.chineseName.localeCompare(b.chineseName, 'zh-CN'));
+        
+        this.displayResults(results, '');
     }
 
     performSearch(query) {
@@ -145,7 +176,7 @@ class CharacterSearch {
             container.innerHTML = `
                 <div class="no-results">
                     <i class="fas fa-search-minus fa-2x mb-3 text-muted"></i>
-                    <p>未找到与 "${query}" 相关的角色</p>
+                    <p>未找到相关角色</p>
                 </div>
             `;
             return;
@@ -153,7 +184,7 @@ class CharacterSearch {
 
         container.innerHTML = results.map((result, index) => `
             <div class="character-item fade-in" data-index="${index}" data-character="${result.chineseName}">
-                <div class="character-name">${this.highlightMatch(result.chineseName, query)}</div>
+                <div class="character-name">${query ? this.highlightMatch(result.chineseName, query) : result.chineseName}</div>
                 <div class="character-prompt">${result.englishPrompt}</div>
             </div>
         `).join('');
@@ -266,23 +297,10 @@ class CharacterSearch {
         return text.replace(regex, '<span class="highlight">$1</span>');
     }
 
+    // 修改初始消息，移除loading状态
     showInitialMessage() {
-        const container = document.getElementById('resultsContainer');
-        container.innerHTML = `
-            <div class="loading">
-                <i class="fas fa-search fa-2x mb-3 text-muted"></i>
-                <p>请输入角色名称开始搜索</p>
-            </div>
-        `;
-        
-        // 重置右侧图片容器
-        const rightContainer = document.getElementById('rightImageContainer');
-        rightContainer.innerHTML = `
-            <div class="no-results">
-                <i class="fas fa-image fa-2x mb-3 text-muted"></i>
-                <p>请选择角色查看预览图</p>
-            </div>
-        `;
+        // 直接显示所有角色，而不是显示提示消息
+        this.displayAllCharacters();
     }
 
     showError(message) {

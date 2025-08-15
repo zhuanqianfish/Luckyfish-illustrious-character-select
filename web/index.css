@@ -61,7 +61,7 @@ body {
 }
 
 .results-container {
-    max-height: 400px;
+    max-height: 600px;
     overflow-y: auto;
     margin-bottom: 30px;
 }
